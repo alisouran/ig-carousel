@@ -21,15 +21,15 @@ function processImage(img) {
   let segmentHeight = img.height;
   let numSegments = Math.ceil(img.width / segmentHeight);
 
-  if (numSegments > 10) {
-    const scaleFactor = 10 / numSegments;
+  if (numSegments > 8) {
+    const scaleFactor = 8 / numSegments;
     segmentHeight = Math.round(segmentHeight * scaleFactor);
-    numSegments = 10;
+    numSegments = 8;
 
     // Create a new canvas with the resized image
     const resizedCanvas = document.createElement("canvas");
     const resizedCtx = resizedCanvas.getContext("2d");
-    resizedCanvas.width = segmentHeight * 10;
+    resizedCanvas.width = segmentHeight * 8;
     resizedCanvas.height = segmentHeight;
 
     // Fill background
