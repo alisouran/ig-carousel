@@ -9,16 +9,28 @@ function handleImageUpload(event) {
   const reader = new FileReader();
   reader.onload = (e) => {
     // Initialize Cropper
-    let croppingContainer = document.getElementById("croppingContainer");
-    croppingContainer.innerHTML = `<img src="${e.target.result}" id="imageToCrop">`;
-    cropper = new Croppie(document.getElementById("imageToCrop"), {
-      viewport: { width: 3200, height: 600 },
-      boundary: { width: 3300, height: 700 },
-      enableResize: true, // Allow resizing of the viewport
-      enableOrientation: true,
-    });
-
-    document.getElementById("cropButton").style.display = "block";
+    const img = new Image();
+    img.onload = () => {
+      let croppingContainer = document.getElementById("croppingContainer");
+      croppingContainer.innerHTML = `<img src="${e.target.result}" id="imageToCrop">`;
+      cropper = new Croppie(document.getElementById("imageToCrop"), {
+        viewport: {
+          width: img.width / 1.7,
+          height: img.height / 1.7,
+        },
+        boundary: {
+          width: img.width / 1.7 + 100,
+          height: img.height / 1.7 + 100,
+        },
+        enableResize: true, // Allow resizing of the viewport
+        enableOrientation: true,
+        enableZoom: true,
+        mouseWheelZoom: true,
+        showZoomer: true,
+      });
+      document.getElementById("cropButton").style.display = "block";
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
   zip.folder("images").forEach((relativePath, file) => {
