@@ -12,8 +12,8 @@ function handleImageUpload(event) {
     let croppingContainer = document.getElementById("croppingContainer");
     croppingContainer.innerHTML = `<img src="${e.target.result}" id="imageToCrop">`;
     cropper = new Croppie(document.getElementById("imageToCrop"), {
-      viewport: { width: 1200, height: 400 },
-      boundary: { width: 1300, height: 500 },
+      viewport: { width: 3200, height: 600 },
+      boundary: { width: 3300, height: 700 },
       enableResize: true, // Allow resizing of the viewport
       enableOrientation: true,
     });
