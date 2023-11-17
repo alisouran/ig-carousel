@@ -2,20 +2,40 @@ document
   .getElementById("imageUpload")
   .addEventListener("change", handleImageUpload);
 const zip = new JSZip();
+let cropper;
 
 function handleImageUpload(event) {
   const file = event.target.files[0];
   const reader = new FileReader();
   reader.onload = (e) => {
-    const img = new Image();
-    img.onload = () => processImage(img);
-    img.src = e.target.result;
+    // Initialize Cropper
+    let croppingContainer = document.getElementById("croppingContainer");
+    croppingContainer.innerHTML = `<img src="${e.target.result}" id="imageToCrop">`;
+    cropper = new Croppie(document.getElementById("imageToCrop"), {
+      viewport: { width: 1200, height: 400 },
+      boundary: { width: 1300, height: 500 },
+      enableResize: true, // Allow resizing of the viewport
+      enableOrientation: true,
+    });
+
+    document.getElementById("cropButton").style.display = "block";
   };
   reader.readAsDataURL(file);
   zip.folder("images").forEach((relativePath, file) => {
     zip.remove(relativePath);
   });
 }
+
+document.getElementById("cropButton").addEventListener("click", function () {
+  cropper
+    .result({ type: "canvas", size: "original" })
+    .then(function (croppedImg) {
+      const img = new Image();
+      img.onload = () => processImage(img);
+      img.src = croppedImg;
+      document.getElementById("cropButton").style.display = "none";
+    });
+});
 
 function processImage(img) {
   let segmentHeight = img.height;
@@ -47,7 +67,13 @@ function processImage(img) {
     canvas.width = segmentHeight;
     canvas.height = segmentHeight;
 
-    ctx.drawImage(img, -i * segmentHeight, 0, img.width, img.height);
+    if (i === numSegments - 1 && img.width % segmentHeight !== 0) {
+      ctx.fillStyle = "#fffbf5";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, -i * segmentHeight, 0, img.width, img.height);
+    } else {
+      ctx.drawImage(img, -i * segmentHeight, 0, img.width, img.height);
+    }
 
     displaySegment(canvas, i);
   }
