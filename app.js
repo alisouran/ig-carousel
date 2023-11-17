@@ -18,13 +18,33 @@ function handleImageUpload(event) {
 }
 
 function processImage(img) {
-  const segmentHeight = img.height; // Height of the original image
-  const numSegments = Math.ceil(img.width / segmentHeight);
+  let segmentHeight = img.height;
+  let numSegments = Math.ceil(img.width / segmentHeight);
+
+  if (numSegments > 10) {
+    const scaleFactor = 10 / numSegments;
+    segmentHeight = Math.round(segmentHeight * scaleFactor);
+    numSegments = 10;
+
+    // Create a new canvas with the resized image
+    const resizedCanvas = document.createElement("canvas");
+    const resizedCtx = resizedCanvas.getContext("2d");
+    resizedCanvas.width = segmentHeight * 10;
+    resizedCanvas.height = segmentHeight;
+
+    // Fill background
+    resizedCtx.fillStyle = "#fffbf5";
+    resizedCtx.fillRect(0, 0, resizedCanvas.width, resizedCanvas.height);
+
+    // Draw the resized image
+    resizedCtx.drawImage(img, 0, 0, resizedCanvas.width, resizedCanvas.height);
+    img = resizedCanvas;
+  }
 
   for (let i = 0; i < numSegments; i++) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = segmentHeight; // Square segment
+    canvas.width = segmentHeight;
     canvas.height = segmentHeight;
 
     ctx.drawImage(img, -i * segmentHeight, 0, img.width, img.height);
