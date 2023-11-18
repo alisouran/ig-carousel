@@ -131,8 +131,18 @@ function displaySegment(canvas, index) {
   });
 }
 
-function downloadAll() {
-  zip.generateAsync({ type: "blob" }).then(function (content) {
-    saveAs(content, "instagram_segments.zip");
-  });
+async function downloadAll() {
+  try {
+    const content = await zip.generateAsync({ type: "blob" });
+    const url = window.URL.createObjectURL(content);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "instagram_segments.zip";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  } catch (err) {
+    console.error("Error in file download:", err);
+  }
 }
