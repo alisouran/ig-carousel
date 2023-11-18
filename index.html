@@ -3,32 +3,117 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instagram Carousel Cutter</title>
-    <style>
-      /* Your CSS styling */
-      .segment-container {
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .segment {
-        margin: 5px;
-        border: 1px solid #ddd;
-      }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+
+    <!-- SEO Optimization: Description, Keywords, Author -->
+    <meta
+      name="description"
+      content="Effortlessly slice your Instagram images into a carousel format with our Carousel Cutter tool. Ideal for creating engaging social media posts."
+    />
+    <meta
+      name="keywords"
+      content="Instagram, Carousel, Image Cutter, Image Segmenter, Social Media Tool, Instagram Post Creator, Image Slicing"
+    />
+    <meta name="author" content="Alireza Souran" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://alisouran.github.io/favicon.ico"
+    />
+
+    <!-- Open Graph Tags -->
+    <meta
+      property="og:title"
+      content="Instagram Carousel Cutter - Effortless Image Segmenting for Social Media"
+    />
+    <meta
+      property="og:description"
+      content="Effortlessly slice your Instagram images into a carousel format with our Carousel Cutter tool. Ideal for creating engaging social media posts."
+    />
+    <meta
+      property="og:image"
+      content="https://alisouran.github.io/ig-carousel/logo.png"
+    />
+    <meta
+      property="og:url"
+      content="https://alisouran.github.io/ig-carousel/"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Instagram Carousel Cutter" />
+
+    <!-- Title for SEO and Bookmarking -->
+    <title>
+      Instagram Carousel Cutter - Effortless Image Segmenting for Social Media
+    </title>
+
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- External CSS Libraries -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <style>
+      .segment {
+        max-width: 360px;
+        max-height: 360px;
+        object-fit: cover;
+        object-position: center;
+        border: 1px solid #ccc;
+      }
+    </style>
   </head>
-  <body>
-    <div id="croppingContainer" style="width: 100%; overflow-x: auto"></div>
-    <button id="cropButton" style="display: none">Crop Image</button>
-    <input type="file" id="imageUpload" accept="image/*" />
-    <div id="segments" class="segment-container"></div>
-
+  <body class="bg-gray-100 font-sans">
+    <!-- Container with Tailwind Styling -->
+    <div id="croppingContainer" class="w-full overflow-x-auto p-4">
+      <h1 class="text-2xl font-bold text-center mb-4">
+        Instagram Carousel Cutter
+      </h1>
+      <p class="text-center text-gray-700 mb-4">
+        Create perfect carousel segments for your Instagram posts with ease.
+      </p>
+    </div>
+    <div
+      id="button-container"
+      class="flex w-full items-center justify-center mt-4"
+    >
+      <button
+        id="cropButton"
+        class="hidden bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+      >
+        Crop Image
+      </button>
+      <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        class="mt-4 block px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-indigo-500"
+      />
+    </div>
+    <!-- Segment Container with Tailwind Styling -->
+    <div id="segments" class="flex flex-wrap mt-4 p-4">
+      <!-- Segment items will go here -->
+    </div>
+    <div class="flex justify-center items-center mt-8 mb-4">
+      <a
+        href="https://github.com/alisouran/ig-carousel"
+        class="flex items-center no-underline hover:underline text-blue-600"
+      >
+        <img
+          src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          alt="GitHub Logo"
+          class="w-6 h-6 mr-2"
+        />
+        <span>View on GitHub</span>
+      </a>
+    </div>
     <script src="app.js"></script>
   </body>
 </html>

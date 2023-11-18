@@ -7,6 +7,10 @@ let cropper;
 function handleImageUpload(event) {
   const file = event.target.files[0];
   const reader = new FileReader();
+  const uploadImage = document.getElementById("imageUpload");
+  if (uploadImage) {
+    uploadImage.classList.add("hidden");
+  }
   reader.onload = (e) => {
     // Initialize Cropper
     const img = new Image();
@@ -91,10 +95,25 @@ function processImage(img) {
   }
 
   // Add a download all button
+  const buttonContainer = document.getElementById("button-container");
+  let croppingContainer = document.getElementById("croppingContainer");
   const downloadAllButton = document.createElement("button");
+  downloadAllButton.classList.add(
+    "bg-blue-500",
+    "hover:bg-blue-700",
+    "text-white",
+    "font-bold",
+    "py-2",
+    "px-4",
+    "rounded",
+    "transition",
+    "duration-300",
+    "ease-in-out"
+  );
   downloadAllButton.innerText = "Download All as ZIP";
   downloadAllButton.addEventListener("click", downloadAll);
-  document.body.appendChild(downloadAllButton);
+  buttonContainer.appendChild(downloadAllButton);
+  croppingContainer.innerHTML = `<h1 class="text-2xl font-bold text-center mb-4">Instagram Carousel Cutter</h1><p class="text-center text-gray-700 mb-4">Effortlessly craft seamless carousel segments for your Instagram posts.</p>`;
 }
 
 function displaySegment(canvas, index) {
