@@ -97,6 +97,7 @@ function processImage(img) {
   // Add a download all button
   const buttonContainer = document.getElementById("button-container");
   let croppingContainer = document.getElementById("croppingContainer");
+  const restartButton = document.getElementById("restartButton");
   const downloadAllButton = document.createElement("button");
   downloadAllButton.classList.add(
     "bg-blue-500",
@@ -113,7 +114,8 @@ function processImage(img) {
   downloadAllButton.innerText = "Download All as ZIP";
   downloadAllButton.addEventListener("click", downloadAll);
   buttonContainer.appendChild(downloadAllButton);
-  croppingContainer.innerHTML = `<h1 class="text-2xl font-bold text-center mb-4">Instagram Carousel Cutter</h1><p class="text-center text-gray-700 mb-4">Effortlessly craft seamless carousel segments for your Instagram posts.</p>`;
+  restartButton.classList.remove("hidden");
+  croppingContainer.innerHTML = `<div class="flex justify-center pb-4 w-full"><img src="https://alisouran.github.io/ig-carousel/logo.png" alt="Instagram Carousel Cutter Logo" class="w-28 h-auto rounded-lg shadow-md"/></div><h1 class="text-2xl font-bold text-center mb-4">Instagram Carousel Cutter</h1><p class="text-center text-gray-700 mb-4">Effortlessly craft seamless carousel segments for your Instagram posts.</p>`;
 }
 
 function displaySegment(canvas, index) {
